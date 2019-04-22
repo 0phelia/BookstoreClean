@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dummy Bookstore</string>
+
+    <string name="book_cover_transition">bookcovertransition</string>
+    <string name="btn_buy_title">Buy it now</string>
+    <string name="menu_search">Search</string>
+
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="failed_books_load_unknown_error_message">Oops, failed to load the books</string>
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FECF32</color>
+    <color name="colorPrimaryDark">#FECF32</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="darkGrey">#222222</color>
+    <color name="colorAppBarSeparator">#a98a23</color>
+
+    <color name="btnHighlightColor">#00B0FF</color>
+    <color name="btnNormalColor">#0091EA</color>
+</resources>

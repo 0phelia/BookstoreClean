@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+    defaultConfig {
+        applicationId "com.arty.presentation"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        multiDexEnabled = true
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        dexInProcess = false
+        javaMaxHeapSize "4g"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "GOOGLE_BOOKS_API_KEY", googleBooksApiKey)
+            buildConfigField("String", "NYT_BOOKS_API_KEY", nytBooksApiKey)
+
+        }
+        release {
+            buildConfigField("String", "GOOGLE_BOOKS_API_KEY", googleBooksApiKey)
+            buildConfigField("String", "NYT_BOOKS_API_KEY", nytBooksApiKey)
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+
+    implementation project(':Data')
+    implementation project(':Remote')
+    implementation project(':cache')
+
+    implementation presentationDependencies.kotlin
+    implementation presentationDependencies.kotlinCoroutines
+    implementation presentationDependencies.javaxInject
+    implementation presentationDependencies.archRuntime
+    implementation presentationDependencies.archExtensions
+
+
+    implementation presentationDependencies.roomRuntime
+    kapt presentationDependencies.roomCompiler
+
+    // mobile ui
+    implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.javaxAnnotation
+    implementation presentationDependencies.androidAnnotations
+    implementation presentationDependencies.recyclerView
+    implementation presentationDependencies.design
+    implementation presentationDependencies.glide
+    implementation presentationDependencies.dagger
+    implementation presentationDependencies.daggerSupport
+
+    // mobile ui
+    kapt presentationDependencies.daggerCompiler
+    kapt presentationDependencies.daggerProcessor
+    compileOnly presentationDependencies.glassfishAnnotation
+    kapt presentationDependencies.archCompiler
+    testImplementation presentationTestDependencies.supportRunner
+    testImplementation presentationTestDependencies.supportRules
+    testImplementation presentationTestDependencies.junit
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.assertj
+    testImplementation presentationTestDependencies.robolectric
+    testImplementation presentationTestDependencies.archTesting
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+}

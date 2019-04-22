@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid
+                android:color="@color/colorAccent" />
+
+        </shape>
+    </item>
+    <!-- Overlap the left, top and right border using background color  -->
+    <item android:drawable="@drawable/heart_outline"
+        android:bottom="8dp"
+        android:top="12dp"
+        android:left="10dp"
+        android:right="10dp"/>
+
+</layer-list>

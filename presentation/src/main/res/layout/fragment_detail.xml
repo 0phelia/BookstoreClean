@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.text.NumberFormat"/>
+        <import type="java.util.Locale"/>
+
+        <variable name="bookCoverUrl" type="String"/>
+        <variable name="simpleTransitionName" type="String"/>
+        <variable name="bookDetailView" type="com.arty.presentation.model.BookDetailView"/>
+        <variable name="viewModel" type="com.arty.presentation.detail.DetailViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_detail_layout_collapsed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorPrimary"
+        tools:context=".home_screen.detail.DetailFragment">
+
+        <ImageView
+            android:id="@+id/iv_cover_detail"
+            android:layout_width="90dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="32dp"
+            android:scaleType="fitXY"
+
+            android:layout_marginTop="32dp"
+
+            android:elevation="8dp"
+            android:outlineProvider="bounds"
+
+            android:transitionName="@{simpleTransitionName}"
+            app:customImageUrl="@{bookCoverUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_book_title"
+            style="@style/titleFatBookDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="@{bookDetailView.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover_detail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_book_author"
+            style="@style/authorLightBookDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@{`by ` + bookDetailView.authors}"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_book_title" />
+
+        <TextView
+            android:id="@+id/tv_book_price"
+            style="@style/priceFatBookDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="@{`#` + bookDetailView.rank + ` this week` }"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_cover_detail"
+            app:layout_constraintStart_toEndOf="@+id/iv_cover_detail" />
+
+
+
+        <TextView
+            android:id="@+id/tv_book_pages_count"
+            style="@style/pageCountLightBookDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{bookDetailView.pages + ` pages`}"
+            app:layout_constraintEnd_toEndOf="@+id/iv_cover_detail"
+            app:layout_constraintStart_toStartOf="@+id/iv_cover_detail"
+            app:layout_constraintTop_toBottomOf="@+id/iv_cover_detail" />
+
+        <Button
+            android:id="@+id/btn_buy_book"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/style_rounded_corners_button"
+            android:ellipsize="end"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:text="@string/btn_buy_title"
+            android:onClick="@{() -> viewModel.addToCart()}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_book_pages_count"
+            app:layout_constraintEnd_toStartOf="@+id/btn_like_book"
+            app:layout_constraintTop_toTopOf="@+id/tv_book_pages_count" />
+
+        <ToggleButton
+            android:id="@+id/btn_like_book"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/style_circular_toggle"
+            android:checked="@{bookDetailView.isLiked}"
+            android:textOff=" "
+            android:textOn=" "
+            app:layout_constraintBottom_toBottomOf="@+id/btn_buy_book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_buy_book"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ScrollView
+            android:id="@+id/scroll_description_holder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_like_book"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="16dp"
+                android:text="@{bookDetailView.description}"
+                app:layout_constraintStart_toStartOf="@+id/scroll_description_holder"
+                app:layout_constraintTop_toTopOf="@+id/scroll_description_holder" />
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
